@@ -1,11 +1,7 @@
-import { Divider } from '@mantine/core';
 import { ReactElement } from 'react';
 import { HeaderLink } from '../types/CommonTypes';
-import { DefaultLayoutFAQ } from './DefaultLayoutFAQ';
 import { DefaultLayoutFooter, FooterData } from './DefaultLayoutFooter';
 import { DefaultLayoutHeader } from './DefaultLayoutHeader';
-import { DefaultLayoutHeroContent } from './DefaultLayoutHeroContent';
-import { DefaultLayoutHeroHeader } from './DefaultLayoutHeroHeader';
 
 interface LayoutProps {
   children: ReactElement;
@@ -13,16 +9,16 @@ interface LayoutProps {
 
 const headerLinks: HeaderLink[] = [
   {
-    label: 'label1',
-    link: 'link-1',
+    label: 'Div회전',
+    link: '/',
   },
   {
-    label: 'label2',
-    link: 'link-2',
+    label: '차트',
+    link: '/chart',
   },
   {
-    label: 'label3',
-    link: 'link-3',
+    label: '테스트 콘솔',
+    link: '/console',
   },
 ];
 
@@ -84,16 +80,8 @@ const DefaultLayout = ({ children }: LayoutProps) => {
   return (
     <div>
       <DefaultLayoutHeader logo="MallocTech" links={headerLinks} />
-      <DefaultLayoutHeroHeader />
-      <Divider variant="dashed" size="xs" />
-      <DefaultLayoutHeroContent
-        title="Malloc Tech Hero Content"
-        description="Malloc Tech Hero Description"
-      />
-      <Divider variant="dashed" size="xs" />
-      <DefaultLayoutFAQ />
-      <DefaultLayoutFooter data={footerDatas} />
       {children}
+      <DefaultLayoutFooter data={footerDatas} />
     </div>
   );
 };

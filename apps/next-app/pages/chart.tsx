@@ -1,7 +1,6 @@
-import { Box, Flex } from '@mantine/core';
+import { Box, Flex, Text } from '@mantine/core';
 import { ReactElement, useEffect, useState } from 'react';
 import DefaultLayout from '../components/DefaultLayout';
-import { DivRotator } from '../components/DivRotator';
 import { NextPageWithLayout } from './_app';
 
 const Home: NextPageWithLayout = () => {
@@ -23,7 +22,7 @@ const Home: NextPageWithLayout = () => {
   return (
     <Box>
       <Flex h="60vh" justify="center" align="center">
-        <DivRotator w={100} h={100} bg="blue" rotationDegree={deg} />
+        <Text>차트 페이지</Text>
       </Flex>
     </Box>
   );

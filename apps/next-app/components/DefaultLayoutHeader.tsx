@@ -1,15 +1,16 @@
-import { useState } from 'react';
 import {
-  createStyles,
-  Title,
-  Header,
-  Container,
-  Group,
   Burger,
+  Container,
+  createStyles,
+  Group,
+  Header,
   Paper,
+  Title,
   Transition,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { HeaderLink } from '../types/CommonTypes';
 
 const HEADER_HEIGHT = 60;
@@ -102,6 +103,7 @@ export function DefaultLayoutHeader({ logo, links }: DefaultLayoutHeaderProps) {
   const [opened, { toggle, close }] = useDisclosure(false);
   const [active, setActive] = useState(links[0].link);
   const { classes, cx } = useStyles();
+  const router = useRouter();
 
   const items = links.map((link) => (
     <a
@@ -113,6 +115,7 @@ export function DefaultLayoutHeader({ logo, links }: DefaultLayoutHeaderProps) {
       onClick={(event) => {
         event.preventDefault();
         setActive(link.link);
+        router.push(link.link);
         close();
       }}
     >
