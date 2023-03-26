@@ -15,3 +15,10 @@
 - 서버에서 메세지를 Publish하고, 클라이언트는 Subscribe하는 구조로 구성한다.
 - 서버에서 메세지를 publish하려면 AMQP라는 프로토콜을 사용해야 하는데, amqplib라는 라이브러리를 사용하면 간편하게 연결해서 메세지를 publish할 수 있다.
 - 클라이언트에서 메세지를 subscribe할때는 amqplib가 필요하지 않다. WebSocket을 사용해서 AWS MQ를 Subscribe할 수 있다. SocketIO를 사용하면 편하게 구현할 수 있다.
+
+## 환경변수
+
+```shell
+QUEUE_NAME='QUEUE_EXAMPLE'
+AWS_MQ_ENDPOINT='amqps://<username>:<password>@<broker-url>'
+```
