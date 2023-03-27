@@ -1,17 +1,18 @@
 import { Box, Flex } from '@mantine/core';
-import { Client } from 'mqtt';
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import mqtt, { Client } from 'mqtt';
+import { nanoid } from 'nanoid';
+import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../components/DefaultLayout';
 import { DivRotator } from '../components/DivRotator';
 import { ServerConfigs } from '../server/config';
+import { RotateRectangleResult } from '../shared/dto/DTOS';
 import { NextPageWithLayout } from './_app';
-import mqtt from 'mqtt';
-import { nanoid } from 'nanoid';
 
 const Home: NextPageWithLayout = () => {
   const [deg, setDeg] = useState(0);
   const [client, setClient] = useState<Client | null>(null);
   const { awsMqttEndpoint, mqUsername, mqPw, queueName } = ServerConfigs.envs;
+  const isSubscribed = useRef(false);
 
   const subscribe = useCallback(async () => {
     const client = mqtt.connect(awsMqttEndpoint, {
@@ -30,7 +31,12 @@ const Home: NextPageWithLayout = () => {
       });
 
       client.on('message', (topic: string, message: Buffer) => {
-        console.log(`[${topic}] message: `, message.toString());
+        const { degree: receivedDegree } = JSON.parse(
+          message.toString()
+        ) as RotateRectangleResult;
+        console.log(receivedDegree);
+
+        setDeg(Number(receivedDegree));
       });
 
       setClient(client);
@@ -38,6 +44,10 @@ const Home: NextPageWithLayout = () => {
   }, [awsMqttEndpoint, mqPw, mqUsername, queueName]);
 
   useEffect(() => {
+    if (isSubscribed.current) {
+      return;
+    }
+    isSubscribed.current = true;
     subscribe();
 
     return () => {
