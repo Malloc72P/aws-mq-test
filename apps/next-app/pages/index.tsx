@@ -11,11 +11,11 @@ import { NextPageWithLayout } from './_app';
 const Home: NextPageWithLayout = () => {
   const [deg, setDeg] = useState(0);
   const [client, setClient] = useState<Client | null>(null);
-  const { awsMqttEndpoint, mqUsername, mqPw, queueName } = ServerConfigs.envs;
+  const { awsMqEndpoint, mqUsername, mqPw, queueName } = ServerConfigs.envs;
   const isSubscribed = useRef(false);
 
   const subscribe = useCallback(async () => {
-    const client = mqtt.connect(awsMqttEndpoint, {
+    const client = mqtt.connect(awsMqEndpoint, {
       protocol: 'wss',
       username: mqUsername,
       password: mqPw,
@@ -41,7 +41,7 @@ const Home: NextPageWithLayout = () => {
 
       setClient(client);
     });
-  }, [awsMqttEndpoint, mqPw, mqUsername, queueName]);
+  }, [awsMqEndpoint, mqPw, mqUsername, queueName]);
 
   useEffect(() => {
     if (isSubscribed.current) {

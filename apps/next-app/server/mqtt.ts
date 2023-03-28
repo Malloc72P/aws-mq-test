@@ -2,9 +2,9 @@ import mqtt from 'mqtt';
 import { nanoid } from 'nanoid';
 import { ServerConfigs } from './config';
 
-const { awsMqttEndpoint, queueName, mqUsername, mqPw } = ServerConfigs.envs;
+const { awsMqEndpoint, queueName, mqUsername, mqPw } = ServerConfigs.envs;
 export const sendMessage = ({ message }: { message: string }) => {
-  const client = mqtt.connect(awsMqttEndpoint, {
+  const client = mqtt.connect(awsMqEndpoint, {
     protocol: 'wss',
     username: mqUsername,
     password: mqPw,
