@@ -79,7 +79,7 @@ const footerDatas: FooterData[] = [
 const DefaultLayout = ({ children }: LayoutProps) => {
   return (
     <div>
-      <DefaultLayoutHeader logo="MallocTech" links={headerLinks} />
+      <DefaultLayoutHeader logo="MQ Test" links={headerLinks} />
       {children}
       <DefaultLayoutFooter data={footerDatas} />
     </div>

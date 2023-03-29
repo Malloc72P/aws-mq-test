@@ -1,8 +1,7 @@
 export interface RotateRectangleResult {
-  publishDate: Date;
-  degree: number;
+  data: number;
 }
 
-export interface RotateRectangleInput {
-  degree: number;
+export interface ChartResult {
+  data: number;
 }

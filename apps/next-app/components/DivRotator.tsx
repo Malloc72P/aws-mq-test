@@ -1,4 +1,4 @@
-import { Box, BoxProps, Switch } from '@mantine/core';
+import { Box, BoxProps, Flex, Switch } from '@mantine/core';
 import { useState } from 'react';
 
 export interface DivRotatorProps extends BoxProps {
@@ -13,13 +13,17 @@ export const DivRotator = ({
 
   return (
     <Box>
-      <Box
+      <Flex
         style={{
           transform: `rotate(${rotationDegree}deg)`,
           transition: transition ? '0.2s' : undefined,
         }}
+        justify="center"
+        align="center"
         {...props}
-      />
+      >
+        {rotationDegree}
+      </Flex>
 
       <Box mt="xl">
         <Switch
