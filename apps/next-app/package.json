@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "yarn prisma generate",
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix ./"
