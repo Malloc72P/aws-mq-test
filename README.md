@@ -1,6 +1,20 @@
-# AWS MQ 예제
+# Message Queue를 사용한 Pub/Sub모델 활용 예제
 
-## AWS MQ란
+## 애플리케이션 구성
+
+![picture 2](images/bdc8f24eb26a39eda4a104e467c7d56d5fd122fb844e5f9440d051797af44ecd.png)  
+![picture 1](images/b51cd08cb86af18422047b283b2e1c71accdb9649ba69052f005391a6ce7d2e9.png)  
+
+- [애플리케이션 링크](https://aws-mq-test-next-app.vercel.app/console)
+- `Console`페이지를 통해 메세지를 publish합니다.
+- 사각형 회전 예제는 `rect`, 차트 예제는 `chart` `토픽`을 subscribe합니다.
+- 해당하는 토픽에 메세지가 publish되면, 화면을 업데이트합니다.
+- 메세지를 publish하고 subscribe하기 위해 websocket을 사용합니다.
+
+## AWS MQ
+---
+
+### AWS MQ란
 
 - AWS MQ는 Amazon Web Services에서 제공하는 메시지 큐 브로커 서비스입니다.
 - AWS MQ는 RabbitMQ, ActiveMQ 등의 메시지 큐 엔진을 사용할 수 있습니다.
@@ -8,17 +22,34 @@
 - AWS MQ는 메시지 큐를 사용하여 분산 시스템의 통합을 단순화 할 수 있습니다.
 - AWS MQ는 AMQP, STOMP, MQTT 및 HTTPS 프로토콜을 지원합니다.
 
-## AWS MQ 구성
+<br/>
 
-![picture 1](images/e4b649eaec499eb3a7d18fd78de7f669f5ad4c96fed182e0dc52e119f1d689ca.png)  
+## ActiveMQ
+---
 
-- 서버에서 메세지를 Publish하고, 클라이언트는 Subscribe하는 구조로 구성한다.
-- 서버에서 메세지를 publish하려면 AMQP라는 프로토콜을 사용해야 하는데, amqplib라는 라이브러리를 사용하면 간편하게 연결해서 메세지를 publish할 수 있다.
-- 클라이언트에서 메세지를 subscribe할때는 amqplib가 필요하지 않다. WebSocket을 사용해서 AWS MQ를 Subscribe할 수 있다. SocketIO를 사용하면 편하게 구현할 수 있다.
+### ActiveMQ란
 
-## 환경변수
+- ActiveMQ는 Apache Software Foundation에서 개발한 오픈 소스 메시지 브로커로, Java Message Service (JMS)를 구현합니다. - 메시지 브로커는 프로듀서(생산자)와 컨슈머(소비자) 사이에서 비동기 메시지 전달을 처리하는 중간 레이어로 작동합니다. 
+- ActiveMQ에서는 주로 두 가지 메시지 전달 모델이 사용되는데, 그 중 하나는 토픽(Topic)입니다.
 
-```shell
-QUEUE_NAME='QUEUE_EXAMPLE'
-AWS_MQ_ENDPOINT='amqps://<username>:<password>@<broker-url>'
-```
+### Publish-Subscribe 모델
+
+- 토픽은 Publish-Subscribe (Pub-Sub) 모델을 사용한 메시지 전달 방식입니다. 
+- 이 모델에서 프로듀서는 메시지를 토픽에 발행하며, 컨슈머는 관심 있는 토픽을 구독합니다. 
+- 토픽에 새 메시지가 발행되면, 구독 중인 모든 컨슈머에게 메시지가 전달됩니다.
+
+### 토픽(Topic)
+
+#### 토픽의 동작 방식
+
+- 프로듀서는 메시지를 생성하고, 해당 메시지를 특정 토픽에 발행합니다.
+- 컨슈머는 관심 있는 토픽을 구독하기 위해 ActiveMQ 브로커에 등록됩니다.
+- 토픽에 새로운 메시지가 발행되면, ActiveMQ 브로커는 구독 중인 모든 컨슈머에게 해당 메시지를 전달합니다.
+- 컨슈머는 전달된 메시지를 처리하고, 필요에 따라 응답 메시지를 발행할 수 있습니다.
+
+#### 토픽의 구조
+
+- 토픽은 주로 계층적인 이름 공간을 사용하여 구성됩니다. 
+- 토픽 이름은 일반적으로 '.'(dot)으로 구분된 문자열로 표현되며, 이를 통해 관련된 토픽들을 그룹화할 수 있습니다. 
+- 예를 들어, "finance.stock.market"이라는 토픽 이름은 금융, 주식, 시장 세 가지 계층으로 구성된 토픽을 나타냅니다.
+ActiveMQ 토픽은 발행/구독 패턴을 사용하여 여러 구독자가 동시에 메시지를 수신할 수 있는 방식을 제공하며, 서로 다른 애플리케이션 및 서비스 간의 비동기식 통신을 지원합니다.
