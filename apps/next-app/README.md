@@ -1,34 +1,22 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 앱 구성 방법
 
-## Getting Started
+## 준비물
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+- ActiveMQ를 엔진으로 사용하는 AWS MQ
+  - wss 엔드포인트에 대한 인터넷 인바운드를 허용 해야 합니다.
+- 환경변수(`apps/next-app/.env`)
+```
+NEXT_PUBLIC_MQ_ENDPOINT=wss://<<AWS_MQ_HOST_NAME>>:61619
+NEXT_PUBLIC_MQ_USERNAME=<<AWS_MQ_USERNAME>>
+NEXT_PUBLIC_MQ_PW=<<AWS_MQ_PASSWORD>>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 설치 및 실행
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```shell
+# 의존성 설치
+yarn
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# dev 서버 실행
+yarn dev
+```
