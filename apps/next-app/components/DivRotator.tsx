@@ -12,7 +12,12 @@ export const DivRotator = ({
   const [transition, setTransition] = useState(true);
 
   return (
-    <Box>
+    <Flex
+      style={{ flexGrow: 1, flexBasis: 0 }}
+      justify="center"
+      align="center"
+      direction="column"
+    >
       <Flex
         style={{
           transform: `rotate(${rotationDegree}deg)`,
@@ -32,6 +37,6 @@ export const DivRotator = ({
           onChange={(e) => setTransition(e.currentTarget.checked)}
         />
       </Box>
-    </Box>
+    </Flex>
   );
 };

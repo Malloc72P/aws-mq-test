@@ -47,7 +47,7 @@ const Home: NextPageWithLayout = () => {
 
       sendMessage({
         topic,
-        data: JSON.stringify({ data }),
+        data,
       });
     }, period);
 

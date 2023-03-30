@@ -1,16 +1,16 @@
 import {
-  createStyles,
-  Text,
-  Container,
   ActionIcon,
+  Container,
+  createStyles,
   Group,
+  Text,
 } from '@mantine/core';
 import {
+  IconBrandInstagram,
   IconBrandTwitter,
   IconBrandYoutube,
-  IconBrandInstagram,
 } from '@tabler/icons';
-import { HeaderLink } from '../types/CommonTypes';
+import { HeaderLink } from '../types/commons';
 
 const useStyles = createStyles((theme) => ({
   footer: {

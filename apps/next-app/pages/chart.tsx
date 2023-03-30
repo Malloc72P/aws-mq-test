@@ -3,8 +3,8 @@ import { Chart } from 'chart.js/auto';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../components/DefaultLayout';
 import { CHART } from '../lib/constants';
-import { ChartResult } from '../shared/dto/DTOS';
 import { subscribeMessage, unsubscribe } from '../shared/mqtt';
+import { ChartResult } from '../types/dto';
 import { NextPageWithLayout } from './_app';
 
 const Home: NextPageWithLayout = () => {

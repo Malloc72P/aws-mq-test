@@ -1,5 +1,5 @@
 import { ReactElement } from 'react';
-import { HeaderLink } from '../types/CommonTypes';
+import { HeaderLink } from '../types/commons';
 import { DefaultLayoutFooter, FooterData } from './DefaultLayoutFooter';
 import { DefaultLayoutHeader } from './DefaultLayoutHeader';
 

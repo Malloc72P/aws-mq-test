@@ -11,7 +11,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { HeaderLink } from '../types/CommonTypes';
+import { HeaderLink } from '../types/commons';
 
 const HEADER_HEIGHT = 60;
 

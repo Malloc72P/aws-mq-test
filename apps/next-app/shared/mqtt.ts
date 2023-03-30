@@ -1,11 +1,13 @@
 import mqtt from 'mqtt';
 import { nanoid } from 'nanoid';
+import { DTO } from '../types/dto';
 import { ServerConfigs } from './config';
 
 const { awsMqEndpoint, mqUsername, mqPw } = ServerConfigs.envs;
+const clientId = nanoid(6);
 
 const client = mqtt.connect(awsMqEndpoint, {
-  clientId: nanoid(6),
+  clientId,
   protocol: 'wss',
   username: mqUsername,
   password: mqPw,
@@ -16,12 +18,19 @@ export const sendMessage = ({
   data,
 }: {
   topic: string;
-  data: string;
+  data: unknown;
 }) => {
   console.log('topic, data', topic, data);
 
   console.log('client.connected: ', client.connected);
-  client.publish(topic, data);
+
+  const dto: DTO = {
+    producerId: clientId,
+    data,
+    date: new Date(),
+  };
+
+  client.publish(topic, JSON.stringify(dto));
 };
 
 export const subscribeMessage = ({
