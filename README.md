@@ -8,7 +8,8 @@ https://user-images.githubusercontent.com/41663269/228703865-76b8c4de-b5e6-4be4-
 
 https://user-images.githubusercontent.com/41663269/228703885-1bed93db-a86d-453e-8bd7-330b97124383.mov  
 
-![picture 1](images/b51cd08cb86af18422047b283b2e1c71accdb9649ba69052f005391a6ce7d2e9.png)  
+![image](https://user-images.githubusercontent.com/41663269/228754310-f97b2905-5c1b-4ddf-af97-7c395834c771.png)  
+
 
 - [애플리케이션 링크](https://aws-mq-test-next-app.vercel.app/console)
 - `Console`페이지를 통해 메세지를 publish합니다.
