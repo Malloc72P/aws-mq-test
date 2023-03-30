@@ -12,7 +12,6 @@
 - 메세지를 publish하고 subscribe하기 위해 websocket을 사용합니다.
 
 ## AWS MQ
----
 
 ### AWS MQ란
 
@@ -25,7 +24,6 @@
 <br/>
 
 ## ActiveMQ
----
 
 ### ActiveMQ란
 
