@@ -1,0 +1,35 @@
+package malloc72p.micomet;
+
+import org.cometd.annotation.server.AnnotationCometDServlet;
+import org.cometd.examples.ChatService;
+import org.cometd.examples.CometDDemoServlet;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletContextInitializer;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRegistration;
+
+@SpringBootApplication
+public class MicometApplication implements ServletContextInitializer{
+
+	public static void main(String[] args) {
+		SpringApplication.run(MicometApplication.class, args);
+	}
+
+	@Override
+    public void onStartup(ServletContext servletContext) {
+        ServletRegistration.Dynamic cometdServlet = servletContext.addServlet("cometd", AnnotationCometDServlet.class);
+        String mapping = "/cometd/*";
+        cometdServlet.addMapping(mapping);
+        cometdServlet.setAsyncSupported(true);
+        cometdServlet.setLoadOnStartup(1);
+        cometdServlet.setInitParameter("services", ChatService.class.getName());
+        cometdServlet.setInitParameter("ws.cometdURLMapping", mapping);
+
+        ServletRegistration.Dynamic demoServlet = servletContext.addServlet("demo", CometDDemoServlet.class);
+        demoServlet.addMapping("/demo");
+        demoServlet.setAsyncSupported(true);
+        demoServlet.setLoadOnStartup(2);
+    }
+}

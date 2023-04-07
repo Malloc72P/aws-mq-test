@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.5</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<java.version>17</java.version>
+		<jetty-version>11.0.14</jetty-version>
+		<spring-boot-version>3.0.5</spring-boot-version>
+		<cometd-version>7.0.10</cometd-version>
+	</properties>
+
+	<groupId>malloc72p</groupId>
+	<artifactId>micomet</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>micomet</name>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-bom</artifactId>
+				<version>${jetty-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<description>cometd example</description>
+
+	<dependencies>
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-web</artifactId>
+		  <exclusions>
+			<exclusion>
+			  <groupId>org.springframework.boot</groupId>
+			  <artifactId>spring-boot-starter-tomcat</artifactId>
+			</exclusion>
+		  </exclusions>
+		</dependency>
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-jetty</artifactId>
+		  <exclusions>
+			<exclusion>
+			  <groupId>jakarta.servlet</groupId>
+			  <artifactId>jakarta.servlet-api</artifactId>
+			</exclusion>
+		  </exclusions>
+		</dependency>
+
+		<dependency>
+		  <groupId>org.eclipse.jetty.toolchain</groupId>
+		  <artifactId>jetty-jakarta-servlet-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty.toolchain</groupId>
+			<artifactId>jetty-jakarta-servlet-api</artifactId>
+			<version>5.0.2</version>
+			<scope>provided</scope>
+		  </dependency>
+
+		<dependency>
+		  <groupId>org.cometd.java</groupId>
+		  <artifactId>cometd-java-examples-embedded</artifactId>
+		  <version>${cometd-version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.cometd.java</groupId>
+		  <artifactId>cometd-java-server-websocket-javax</artifactId>
+		  <version>${cometd-version}</version>
+		</dependency>
+	
+		<dependency>
+		  <groupId>org.springframework.boot</groupId>
+		  <artifactId>spring-boot-starter-test</artifactId>
+		  <scope>test</scope>
+		  <exclusions>
+			<exclusion>
+			  <groupId>org.junit.vintage</groupId>
+			  <artifactId>junit-vintage-engine</artifactId>
+			</exclusion>
+		  </exclusions>
+		</dependency>
+		<dependency>
+		  <groupId>org.cometd.java</groupId>
+		  <artifactId>cometd-java-client-websocket-javax</artifactId>
+		  <version>${cometd-version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.eclipse.jetty</groupId>
+		  <artifactId>jetty-util-ajax</artifactId>
+		  <version>${jetty-version}</version>
+		</dependency>
+	  </dependencies>
+</project>
