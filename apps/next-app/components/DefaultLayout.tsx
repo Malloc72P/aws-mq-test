@@ -1,6 +1,8 @@
+import { Box, Flex } from '@mantine/core';
 import { ReactElement } from 'react';
+import { useCommonStyles } from '../lib/styles';
 import { HeaderLink } from '../types/commons';
-import { DefaultLayoutFooter, FooterData } from './DefaultLayoutFooter';
+import { FooterData } from './DefaultLayoutFooter';
 import { DefaultLayoutHeader } from './DefaultLayoutHeader';
 
 interface LayoutProps {
@@ -85,12 +87,14 @@ const footerDatas: FooterData[] = [
 ];
 
 const DefaultLayout = ({ children }: LayoutProps) => {
+  const {
+    classes: { grow },
+  } = useCommonStyles();
   return (
-    <div>
+    <Flex direction="column" h="100vh">
       <DefaultLayoutHeader logo="MQ Test" links={headerLinks} />
-      {children}
-      <DefaultLayoutFooter data={footerDatas} />
-    </div>
+      <Box className={grow}>{children}</Box>
+    </Flex>
   );
 };
 

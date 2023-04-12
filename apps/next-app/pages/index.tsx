@@ -15,7 +15,7 @@ const Home: NextPageWithLayout = () => {
   const [receivedData, setReceivedData] = useState<DTO[]>([]);
 
   const {
-    classes: { spacer, zeroBasis },
+    classes: { grow, zeroBasis },
     cx,
   } = useCommonStyles();
 
@@ -52,9 +52,9 @@ const Home: NextPageWithLayout = () => {
   return (
     <Box>
       <Flex h="60vh" justify="center" align="center">
-        <Box className={cx(spacer, zeroBasis)}></Box>
+        <Box className={cx(grow, zeroBasis)}></Box>
         <DivRotator w={100} h={100} bg="blue" rotationDegree={deg} />
-        <Box className={cx(spacer, zeroBasis)} h="100%">
+        <Box className={cx(grow, zeroBasis)} h="100%">
           <ReceivedData data={receivedData}></ReceivedData>
         </Box>
       </Flex>

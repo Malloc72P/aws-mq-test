@@ -1,9 +1,9 @@
 import mqtt from 'mqtt';
 import { nanoid } from 'nanoid';
 import { DTO } from '../types/dto';
-import { ServerConfigs } from './config';
+import { serverConfigs } from './config';
 
-const { awsMqEndpoint, mqUsername, mqPw } = ServerConfigs.envs;
+const { awsMqEndpoint, mqUsername, mqPw } = serverConfigs.envs;
 const clientId = nanoid(6);
 
 const client = mqtt.connect(awsMqEndpoint, {

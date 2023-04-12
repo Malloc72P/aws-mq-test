@@ -17,7 +17,7 @@ export interface CometDPublishable {
   onPublish: () => void;
 }
 
-export const CHANNEL_ID = '/chat/micomet';
+export const CHANNEL_ID = '/test/micomet';
 
 export const useCometD = () => {
   const lock = useRef<boolean>(false);

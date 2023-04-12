@@ -18,7 +18,7 @@ export const useMessageDisplayerStyle = createStyles(
 );
 
 export const useCommonStyles = createStyles(() => ({
-  spacer: {
+  grow: {
     flexGrow: 1,
   },
   zeroBasis: {

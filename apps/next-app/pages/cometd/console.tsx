@@ -1,20 +1,38 @@
-import { Box, Flex, NumberInput, Text } from '@mantine/core';
-import { ReactElement, useEffect, useState } from 'react';
+import { Box, Button, Flex, NumberInput, Text } from '@mantine/core';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../../components/DefaultLayout';
 import { CHANNEL_ID, useCometD } from '../../lib/useCometD';
+import { getCircleXY } from '../../lib/utils';
 import { NextPageWithLayout } from '../_app';
 
 const Home: NextPageWithLayout = () => {
   const [period, setPeriod] = useState(1000);
   const [tempPeriod, setTempPeriod] = useState(1000);
+  const [periodBeforeStop, setPeriodBeforeStop] = useState(-1);
   const { cometd } = useCometD();
+  const radianRef = useRef<number>(0);
 
   useEffect(() => {
     if (!cometd) {
       return;
     }
     const interval = setInterval(() => {
-      cometd.publish(CHANNEL_ID, 'ping', () => console.log('published'));
+      radianRef.current++;
+      if (radianRef.current >= 360) {
+        radianRef.current = 0;
+      }
+
+      const { x, y } = getCircleXY({
+        degree: radianRef.current,
+        radius: 200,
+      });
+
+      const message = {
+        x,
+        y,
+        time: new Date(),
+      };
+      cometd.publish(CHANNEL_ID, message);
     }, period);
 
     return () => {
@@ -43,6 +61,30 @@ const Home: NextPageWithLayout = () => {
               }
             }}
           ></NumberInput>
+          <Flex gap="md">
+            <Button
+              disabled={periodBeforeStop !== -1}
+              onClick={() => {
+                setPeriodBeforeStop(period);
+                const INFINITE = 99999999999;
+                setTempPeriod(INFINITE);
+                setPeriod(INFINITE);
+              }}
+            >
+              Stop
+            </Button>
+            {periodBeforeStop !== -1 && (
+              <Button
+                onClick={() => {
+                  setTempPeriod(periodBeforeStop);
+                  setPeriod(periodBeforeStop);
+                  setPeriodBeforeStop(-1);
+                }}
+              >
+                Resume
+              </Button>
+            )}
+          </Flex>
         </Box>
       </Flex>
     </Box>

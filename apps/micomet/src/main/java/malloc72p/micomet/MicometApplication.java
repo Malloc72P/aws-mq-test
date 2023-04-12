@@ -1,8 +1,6 @@
 package malloc72p.micomet;
 
 import org.cometd.annotation.server.AnnotationCometDServlet;
-import org.cometd.examples.ChatService;
-import org.cometd.examples.CometDDemoServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -13,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;
+import malloc72p.micomet.test.TestService;
+import malloc72p.micomet.test.TestServlet;
 
 @SpringBootApplication
 @CrossOrigin(origins = "http://localhost:8080")
@@ -29,13 +29,13 @@ public class MicometApplication implements ServletContextInitializer{
         cometdServlet.addMapping(mapping);
         cometdServlet.setAsyncSupported(true);
         cometdServlet.setLoadOnStartup(1);
-        cometdServlet.setInitParameter("services", ChatService.class.getName());
+        cometdServlet.setInitParameter("services", TestService.class.getName());
         cometdServlet.setInitParameter("ws.cometdURLMapping", mapping);
 
-        ServletRegistration.Dynamic demoServlet = servletContext.addServlet("demo", CometDDemoServlet.class);
-        demoServlet.addMapping("/demo");
-        demoServlet.setAsyncSupported(true);
-        demoServlet.setLoadOnStartup(2);
+        ServletRegistration.Dynamic testServlet = servletContext.addServlet("micomet", TestServlet.class);
+        testServlet.addMapping("/test");
+        testServlet.setAsyncSupported(true);
+        testServlet.setLoadOnStartup(2);
     }
 
     @Bean
