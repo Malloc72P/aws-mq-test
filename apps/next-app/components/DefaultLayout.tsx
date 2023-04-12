@@ -17,12 +17,16 @@ const headerLinks: HeaderLink[] = [
     link: '/chart',
   },
   {
-    label: 'Comet',
-    link: '/comet',
-  },
-  {
     label: '테스트 콘솔',
     link: '/console',
+  },
+  {
+    label: 'Comet 클라이언트',
+    link: '/cometd/client',
+  },
+  {
+    label: 'CometD 테스트 콘솔',
+    link: '/cometd/console',
   },
 ];
 

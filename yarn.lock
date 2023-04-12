@@ -889,6 +889,11 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
+cometd@^7.0.10:
+  version "7.0.10"
+  resolved "https://registry.yarnpkg.com/cometd/-/cometd-7.0.10.tgz#eeb15353e6aef5d024099a8a92eac45593d194c5"
+  integrity sha512-L46n1NjoV6qbRa6U3HnyMIofxKGTfME/6VmdFS8MJgS+kZzs904NdpCaDRyNbHr/mBHlK0lq2mjCGspbFmSg0A==
+
 commist@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/commist/-/commist-1.1.0.tgz#17811ec6978f6c15ee4de80c45c9beb77cee35d5"

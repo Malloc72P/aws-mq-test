@@ -6,11 +6,16 @@ import org.cometd.examples.CometDDemoServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;
 
 @SpringBootApplication
+@CrossOrigin(origins = "http://localhost:8080")
 public class MicometApplication implements ServletContextInitializer{
 
 	public static void main(String[] args) {
@@ -32,4 +37,14 @@ public class MicometApplication implements ServletContextInitializer{
         demoServlet.setAsyncSupported(true);
         demoServlet.setLoadOnStartup(2);
     }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/cometd/*").allowedOrigins("http://localhost:8080");
+			}
+		};
+	}
 }
