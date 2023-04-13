@@ -8,6 +8,7 @@ export interface MessageType {
   x: number;
   y: number;
   time: string;
+  producerId: string;
 }
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
   const canvasElelemnt = useRef<HTMLCanvasElement>(null);
   const counterRef = useRef<number>(0);
   const [mps, setMps] = useState<number>(0);
+  const [unitMap] = useState<Map<string, { x: number; y: number }>>(new Map());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -48,14 +50,15 @@ const Home = () => {
         }
 
         console.log('received >>> ', message);
-        const data = message.data as MessageType;
-        draw({ canvasElelemnt: canvasElelemnt.current, x: data.x, y: data.y });
+        const { producerId, x, y } = message.data as MessageType;
+        unitMap.set(producerId, { x, y });
+        draw({ canvasElelemnt: canvasElelemnt.current, unitMap });
       },
       () => {
         console.log('start subscribe');
       }
     );
-  }, [cometd]);
+  }, [cometd, unitMap]);
 
   return (
     <Flex h="100%" justify="center">
@@ -111,23 +114,23 @@ export default Home;
 
 export interface DrawProps {
   canvasElelemnt: HTMLCanvasElement;
-  x: number;
-  y: number;
+  unitMap: Map<string, { x: number; y: number }>;
 }
 
-const draw = ({ canvasElelemnt, x, y }: DrawProps) => {
+const draw = ({ canvasElelemnt, unitMap }: DrawProps) => {
   const ctx = canvasElelemnt.getContext('2d');
   if (!ctx) {
     return;
   }
-
-  ctx.lineWidth = 5;
   ctx.clearRect(0, 0, canvasElelemnt.width, canvasElelemnt.height);
-  ctx.beginPath();
-  ctx.fillStyle = 'red';
-  ctx.arc(x, y, 16, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = 'black';
-  ctx.stroke();
+  unitMap.forEach(({ x, y }, producerId) => {
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.fillStyle = 'red';
+    ctx.arc(x, y, 16, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+  });
 };

@@ -1,4 +1,5 @@
 import { Box, Button, Flex, NumberInput, Text } from '@mantine/core';
+import { nanoid } from 'nanoid';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import DefaultLayout from '../../components/DefaultLayout';
 import { CHANNEL_ID, useCometD } from '../../lib/useCometD';
@@ -11,6 +12,7 @@ const Home: NextPageWithLayout = () => {
   const [periodBeforeStop, setPeriodBeforeStop] = useState(-1);
   const { cometd } = useCometD();
   const radianRef = useRef<number>(0);
+  const [producerId] = useState(nanoid(12));
 
   useEffect(() => {
     if (!cometd) {
@@ -30,6 +32,7 @@ const Home: NextPageWithLayout = () => {
       const message = {
         x,
         y,
+        producerId,
         time: new Date(),
       };
       cometd.publish(CHANNEL_ID, message);
@@ -38,7 +41,7 @@ const Home: NextPageWithLayout = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [cometd, period]);
+  }, [cometd, period, producerId]);
 
   return (
     <Box>
