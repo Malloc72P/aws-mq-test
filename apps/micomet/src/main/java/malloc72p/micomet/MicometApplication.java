@@ -31,7 +31,6 @@ public class MicometApplication implements ServletContextInitializer{
         cometdServlet.setLoadOnStartup(1);
         cometdServlet.setInitParameter("services", TestService.class.getName());
         cometdServlet.setInitParameter("ws.cometdURLMapping", mapping);
-        cometdServlet.setInitParameter("metaConnectDeliverOnly", "true");
 
         ServletRegistration.Dynamic testServlet = servletContext.addServlet("micomet", TestServlet.class);
         testServlet.addMapping("/test");

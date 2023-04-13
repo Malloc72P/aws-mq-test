@@ -7,8 +7,8 @@ import { getCircleXY } from '../../lib/utils';
 import { NextPageWithLayout } from '../_app';
 
 const Home: NextPageWithLayout = () => {
-  const [period, setPeriod] = useState(1000);
-  const [tempPeriod, setTempPeriod] = useState(1000);
+  const [period, setPeriod] = useState(50);
+  const [tempPeriod, setTempPeriod] = useState(50);
   const [periodBeforeStop, setPeriodBeforeStop] = useState(-1);
   const { cometd } = useCometD();
   const radianRef = useRef<number>(0);

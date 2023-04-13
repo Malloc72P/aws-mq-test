@@ -44,6 +44,14 @@ public class TestServlet extends HttpServlet {
         bayeux.addExtension(new TimesyncExtension());
         bayeux.addExtension(new AcknowledgedMessagesExtension());
 
+        bayeux.addListener(new BayeuxServer.SessionListener() {
+            @Override
+            public void sessionAdded(ServerSession session, ServerMessage message) {
+                session.setMetaConnectDeliveryOnly(true);
+                logger.info("#### MetaConnectDeliveryOnly 설정 활성화 ####");
+            }
+        });
+
         // Deny unless granted
 
         bayeux.createChannelIfAbsent("/**", channel -> channel.addAuthorizer(GrantAuthorizer.GRANT_NONE));
