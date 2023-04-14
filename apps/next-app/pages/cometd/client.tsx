@@ -17,7 +17,9 @@ const Home = () => {
   const canvasElelemnt = useRef<HTMLCanvasElement>(null);
   const counterRef = useRef<number>(0);
   const [mps, setMps] = useState<number>(0);
-  const [unitMap] = useState<Map<string, { x: number; y: number }>>(new Map());
+  const [unitMap, setUnitMap] = useState<Map<string, { x: number; y: number }>>(
+    new Map()
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -85,6 +87,8 @@ const Home = () => {
                 if (!canvasElelemnt.current) {
                   return;
                 }
+                unitMap.clear();
+
                 const ctx = canvasElelemnt.current.getContext('2d');
                 if (!ctx) {
                   return;

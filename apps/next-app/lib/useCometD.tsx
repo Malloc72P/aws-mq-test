@@ -1,5 +1,6 @@
 import * as CometdLib from 'cometd';
 import { CometD } from 'cometd';
+import ReloadExtension from 'cometd/ReloadExtension';
 import { useEffect, useRef, useState } from 'react';
 
 export interface CometDHandshakable {
@@ -37,6 +38,10 @@ export const useCometD = () => {
     tempCometD.configure({
       url: 'http://localhost:8080/cometd',
     });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    tempCometD.registerExtension('reload', new ReloadExtension());
 
     // 핸드셰이크 시도
     tempCometD.handshake((arg) => {

@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import org.cometd.annotation.Listener;
 import org.cometd.annotation.Service;
-import org.cometd.annotation.server.Configure;
-import org.cometd.annotation.server.RemoteCall;
 import org.cometd.annotation.server.ServerAnnotationProcessor;
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.server.BayeuxServer;
@@ -14,6 +12,7 @@ import org.cometd.bayeux.server.ServerChannel;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.examples.CometDDemoServlet;
+import org.cometd.examples.CometDDemoServlet.EchoRPC;
 import org.cometd.server.BayeuxServerImpl;
 import org.cometd.server.authorizer.GrantAuthorizer;
 import org.cometd.server.ext.AcknowledgedMessagesExtension;
@@ -48,7 +47,6 @@ public class TestServlet extends HttpServlet {
             @Override
             public void sessionAdded(ServerSession session, ServerMessage message) {
                 session.setMetaConnectDeliveryOnly(true);
-                logger.info("#### MetaConnectDeliveryOnly 설정 활성화 ####");
             }
         });
 
@@ -70,20 +68,6 @@ public class TestServlet extends HttpServlet {
         }
     }
 
-    @Service("echo")
-    public static class EchoRPC {
-        @Configure("/service/echo")
-        private void configureEcho(ConfigurableServerChannel channel) {
-            channel.addAuthorizer(GrantAuthorizer.GRANT_SUBSCRIBE_PUBLISH);
-        }
-
-        @RemoteCall("echo")
-        public void doEcho(RemoteCall.Caller caller, Object data) {
-            logger.info("ECHO from " + caller.getServerSession() + ": " + data);
-            caller.result(data);
-        }
-    }
-
     @Service("monitor")
     public static class Monitor {
         @Listener("/meta/subscribe")
@@ -94,6 +78,11 @@ public class TestServlet extends HttpServlet {
         @Listener("/meta/unsubscribe")
         public void monitorUnsubscribe(ServerSession session, ServerMessage message) {
             logger.info("Monitored Unsubscribe from " + session + " for " + message.get(Message.SUBSCRIPTION_FIELD));
+        }
+
+        @Listener("/meta/disconnect")
+        public void monitorDisconnect(ServerSession session, ServerMessage message) {
+            logger.info("Monitored Disconnect from " + session);
         }
 
         @Listener("/meta/*")
