@@ -33,15 +33,26 @@ export const useCometD = () => {
 
     // 인스턴스 생성
     const tempCometD = new CometdLib.CometD();
+    const registerResult = tempCometD.registerExtension(
+      'reload',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      new ReloadExtension()
+    );
+
+    console.debug('registerResult >>> ', registerResult);
 
     // 인스턴스 구성
     tempCometD.configure({
       url: 'http://localhost:8080/cometd',
     });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    tempCometD.registerExtension('reload', new ReloadExtension());
+    tempCometD.addListener('/meta/handshake', (m) => {
+      if (!m.successful) {
+        return;
+      }
+      console.log('meta handshake true, subscribe channels');
+    });
 
     // 핸드셰이크 시도
     tempCometD.handshake((arg) => {
@@ -54,6 +65,12 @@ export const useCometD = () => {
       // 핸드셰이크 성공
       setCometD(tempCometD);
     });
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', () => {
+        tempCometD.reload && tempCometD.reload();
+      });
+    }
   }, []);
 
   return { cometd };
