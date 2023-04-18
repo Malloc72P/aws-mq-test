@@ -41,7 +41,6 @@ const Home = () => {
       return;
     }
     lock.current = true;
-    console.log(cometd);
 
     cometd.subscribe(
       CHANNEL_ID,
@@ -51,7 +50,6 @@ const Home = () => {
           return;
         }
 
-        console.log('received >>> ', message);
         const { producerId, x, y } = message.data as MessageType;
         unitMap.set(producerId, { x, y });
         draw({ canvasElelemnt: canvasElelemnt.current, unitMap });
